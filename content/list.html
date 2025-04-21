@@ -146,49 +146,49 @@ img.add_border {
 <p><iframe allowfullscreen="allowfullscreen" height="314" src="//www.youtube.com/embed/mVhaFfnJ0YA" width="560"></iframe></p>
 <p><a href="https://mdecd2025.github.io/hw-41223206/content/Brython.html?src=https://gist.githubusercontent.com/41223206/c06557cb681a4bd5c071a80686139f2a/raw/15cf7494a5f13f9fc8321ef31ff76a52601be6c5/g3*list" title="g3 結果">g3 結果</a></p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">from browser import html, document, ajax
-
-# 目標 URL
-url = "https://mde.tw/list/2b.txt"
-
-# G3 組員學號清單
-g3_members = {"41223206", "41223226", "41223227", "41223228", "41223235", "41223215"}
-
-# 定義回呼函式來處理資料
-def on_complete(req):
-    if req.status == 200:
-        data = req.text.splitlines()  # 以換行分割成數列
-        all_stud = [line.strip() for line in data[1:] if line.strip()]  # 移除空白並排除空行
-
-        # 取得網頁上的 div 來顯示內容
-        brython_div1 = document["brython_div1"]
-
-        # 過濾 G3 組員
-        g3_list = []
-        for student in all_stud:
-            parts = student.split()  # 用空白分割
-            if len(parts) == 2:
-                student_id, student_account = parts
-                if student_id in g3_members:
-                    g3_list.append((student_id, student_account))
-
-        # 顯示組員數量
-        brython_div1 &lt;= f"G3 組別 - 組員共 {len(g3_list)} 名"
-        brython_div1 &lt;= html.BR() * 2
-
-        # 逐行顯示 G3 組員
-        for student_id, student_account in g3_list:
-            # 學號超連結
-            student_id_link = html.A(student_id, href=f"https://mdecd2025.github.io/hw-{student_account}", target="_blank")
-
-            # 帳號超連結
-            github_link = html.A(student_account, href=f"https://github.com/mdecd2025/hw-{student_account}", target="_blank")
-
-            # 插入內容
-            brython_div1 &lt;= student_id_link + " : " + github_link
-            brython_div1 &lt;= html.BR()
-
-# 發送 AJAX 請求
-ajax.get(url, oncomplete=on_complete)</pre>
+ 
+ # 目標 URL
+ url = "https://mde.tw/list/2b.txt"
+ 
+ # G3 組員學號清單
+ g3_members = {"41223206", "41223226", "41223227", "41223228", "41223235", "41223215"}
+ 
+ # 定義回呼函式來處理資料
+ def on_complete(req):
+     if req.status == 200:
+         data = req.text.splitlines()  # 以換行分割成數列
+         all_stud = [line.strip() for line in data[1:] if line.strip()]  # 移除空白並排除空行
+ 
+         # 取得網頁上的 div 來顯示內容
+         brython_div1 = document["brython_div1"]
+ 
+         # 過濾 G3 組員
+         g3_list = []
+         for student in all_stud:
+             parts = student.split()  # 用空白分割
+             if len(parts) == 2:
+                 student_id, student_account = parts
+                 if student_id in g3_members:
+                     g3_list.append((student_id, student_account))
+ 
+         # 顯示組員數量
+         brython_div1 &lt;= f"G3 組別 - 組員共 {len(g3_list)} 名"
+         brython_div1 &lt;= html.BR() * 2
+ 
+         # 逐行顯示 G3 組員
+         for student_id, student_account in g3_list:
+             # 學號超連結
+             student_id_link = html.A(student_id, href=f"https://mdecd2025.github.io/hw-{student_account}", target="_blank")
+ 
+             # 帳號超連結
+             github_link = html.A(student_account, href=f"https://github.com/mdecd2025/hw-{student_account}", target="_blank")
+ 
+             # 插入內容
+             brython_div1 &lt;= student_id_link + " : " + github_link
+             brython_div1 &lt;= html.BR()
+ 
+ # 發送 AJAX 請求
+ ajax.get(url, oncomplete=on_complete)</pre>
 <p></p>
 <p></p><br />task1 << <a href='task1.html'>Previous</a> <a href='task2.html'>Next</a> >> task2</div>
         
