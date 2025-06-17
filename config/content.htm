@@ -375,9 +375,42 @@
 <p><span>說明: </span></p>
 <p style="padding-left: 30px;"><span>籃框架被配置在一定範圍內, 可隨機慢速前進、後退及左右擺動, 投籃機構系統帶有一定數量的籃球, 被配置在可自由移動的輪車上.</span></p>
 <p style="padding-left: 30px;"><span>操作者可利用鍵盤特定按鍵控制投籃輪車的移動並發射投籃, 每投出一球後系統透過記分板進行計分, 並由送球機構進行補球或移動輪車取球, 遊戲可進行至全部數量籃球投完為止.</span></p>
+<p style="padding-left: 30px;"><span>搭載式底座車輛的建模:</span></p>
+<p style="padding-left: 30px;"><span><img alt="" height="176" src="/images/車車.png" width="258"/></span></p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">Robot {
+  children [
+    Robot {  // &lt;-- 這裡嵌套了一個子機器人，裡面才是重點！
+      ...
+    }
+  ]
+}
+</pre>
+<p><span style="color: #000000; background-color: #ccffff;">外層Robot</span>是一個總控制單位</p>
+<p><span style="background-color: #ccffff;">內層的</span><span><span style="background-color: #ccffff;">Robot</span>投籃機構、馬達等</span></p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">Solid {
+  name "base"
+  geometry Mesh {
+    url [ "models/base.obj" ]
+  }</pre>
+<p><span>為車子的主體底座，零件都要接在此平台上</span></p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">HingeJoint {
+          jointParameters HingeJointParameters {
+            position 0.0031144628241826593
+            axis 0 0 1
+            anchor 0.15 0.68 0
+          }</pre>
+<p></p>
+<p><span>中間使用許多的HingeJoint來進行結構接，使其能夠作動</span></p>
+<p><span>實體模型都是使用.obj檔</span></p>
+<p>組裝在不同的 <code data-end="1109" data-start="1102">Solid</code> 節點中，並透過 <code data-end="1133" data-start="1121">HingeJoint</code> + <code data-end="1153" data-start="1136">RotationalMotor</code> 控制動作。</p>
+<p>車子主體使用外層Robot+best製作</p>
+<p>籃球基本體是用內層Robot+<span>HingeJoint+ <code data-end="1276" data-start="1270">Mesh製作</code></span></p>
+<p>所有結構都建立在 <code data-end="1310" data-start="1303">Robot</code> 內部的 <code data-end="1325" data-start="1315">children</code> 中，不同的部位靠著正確的 <code data-end="1351" data-start="1343">anchor</code>、<code data-end="1365" data-start="1352">translation</code> 和 <code data-end="1380" data-start="1368">HingeJoint</code> 組合成一個整體<span>，</span>所有部位最後都繫在 <code data-end="1409" data-start="1403">base</code> 上，所以整體能跟著車子移動。</p>
+<p>檔案位置:<a href="/downloads/final project.7z">/downloads/final project.7z</a></p>
+<p>心得:這學期學習的很多東西都是以往沒使用過的<span>，老師教導的東西還滿有深度的，所以剛開始製作時哪哪都看不懂，靠著chatGPT+看影片一步一步慢慢學習，期中過後的內容更加困難些，我會主動詢問成績更加優秀的同學，努力跟上進度，盡量將老師給的題目做好，整個圍繞著運用Webots來控制實體，我學習到很多新事物，可並不熟悉，還在慢慢摸索。</span></p>
+<p></p>
 <p>請將期末協同專案執行過程、內容與心得, 製作成影片，配合字幕上傳至 Youtube 後嵌入各階段的期末報告頁面中.</p>
-<p>影片標題: <span style="background-color: #ffff00;">國立虎尾科技大學 - 機械設計工程系 - cd2025 期末報告 - 學員學號 - 各階段影片主題<br/></span></p>
-<h1>Brython</h1>
+<p>影片標題: <span style="background-color: #ffff00;">國立虎尾科技大學 - 機械設計工程系 - cd2025 期末報告 - 學員學號 - 各階段影片主題<br/></span></p><h1>Brython</h1>
 <p><button id="add1to100">1 add to 100</button></p>
 <!-- 導入 brython 程式庫 -->
 <p>
